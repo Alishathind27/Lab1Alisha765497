@@ -18,12 +18,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     var locationManager = CLLocationManager()
     var coordinate: CLLocationCoordinate2D!
     
+    var driving = true
+    
     @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         mapView.showsUserLocation = true
+        mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -32,24 +35,67 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let DTap = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
         DTap.numberOfTapsRequired = 2
         mapView.addGestureRecognizer(DTap)
-    
+        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 43.64, longitude: -79.38), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)), animated: true)
+        
        
     }
     
+    
+    
+    @IBAction func driving(_ sender: UIButton) {
+        
+        
+        driving = true
+        let overlayALL = mapView.overlays
+        if overlayALL.count > 0 {
+            
+            mapView.removeOverlays(overlayALL)
+            
+        }
+        
+        showDirection(destination: coordinate)
+    }
+    @IBAction func walking(_ sender: UIButton) {
+        
+        driving = false
+        let overlayALL = mapView.overlays
+        if overlayALL.count > 0 {
+            
+            mapView.removeOverlays(overlayALL)
+            
+        }
+        showDirection(destination: coordinate)
+        
+    }
     @objc func doubleTap(gestureRecognizer: UIGestureRecognizer)
     {
+        
+        let overlayALL = mapView.overlays
+        if overlayALL.count > 0 {
+            
+            mapView.removeOverlays(overlayALL)
+            
+        }
+        
+        let all = mapView.annotations
+        
+        if all.count == 2 {
+            
+            let a = all[1]
+            mapView.removeAnnotation(a)
+            
+        }
         
         let point = gestureRecognizer.location(in: mapView)
         coordinate = mapView.convert(point, toCoordinateFrom: mapView)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
-
     }
  
 
-    @IBAction func direction(_ sender: UIButton) {
-        
+    @IBAction func direction(_ sender: UIButton)
+    {
         showDirection(destination: coordinate)
     }
     
@@ -68,13 +114,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let destinationRequest = MKDirections.Request()
         destinationRequest.source = SItem
         destinationRequest.destination = DItem
-        destinationRequest.transportType = .automobile
+        destinationRequest.transportType = driving ? MKDirectionsTransportType.automobile : MKDirectionsTransportType.walking
         
         let dire = MKDirections(request: destinationRequest)
         dire.calculate{(response, error) in
-        guard let response = response else{
-            if let error = error {
-                print("dhhsbd")
+            guard let response = response
+            else{
+            if let error = error
+            {
+            print("there is an error")
             }
             return
             }
@@ -82,13 +130,29 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             let route = response.routes[0]
             print(route)
             self.mapView.addOverlay(route.polyline)
-            print("hxbs")
+            print("okkkk")
+            
     }
-        
 }
     
+    
+    @IBAction func ZoomIn(_ sender: UIButton) {
+        var zoom = mapView.region
+        zoom.span.latitudeDelta = zoom.span.latitudeDelta / 2
+        zoom.span.longitudeDelta = zoom.span.longitudeDelta / 2
+        mapView.setRegion(zoom, animated: true)
+    }
+    
+    @IBAction func ZoomOut(_ sender: UIButton) {
+        var zoom = mapView.region
+               zoom.span.latitudeDelta = zoom.span.latitudeDelta * 2
+               zoom.span.longitudeDelta = zoom.span.longitudeDelta * 2
+               mapView.setRegion(zoom, animated: true)
+    }
+    
     // function to add overlay
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer
+       {
         
         if overlay is MKPolyline{
             let rendrer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
@@ -98,6 +162,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
         return MKOverlayRenderer()
         }
-    }
+    
+    
+    
+}
+
 
 

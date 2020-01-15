@@ -27,6 +27,39 @@
                                     <action selector="direction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mwo-vN-vAp"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znC-CC-zeB">
+                                <rect key="frame" x="27" y="9" width="65" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="car.jpg"/>
+                                <connections>
+                                    <action selector="driving:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bjB-Yk-Ezq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fk8-lK-SYl">
+                                <rect key="frame" x="100" y="9" width="63" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <state key="normal" title="Button" image="walking.jpg"/>
+                                <connections>
+                                    <action selector="walking:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8SR-pg-mSO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmk-wd-zNL">
+                                <rect key="frame" x="182" y="13" width="46" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="zoomIn.png"/>
+                                <connections>
+                                    <action selector="ZoomIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TiC-ox-M6i"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcY-ui-uvG">
+                                <rect key="frame" x="248" y="15" width="45" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="zoom Out.png"/>
+                                <connections>
+                                    <action selector="ZoomOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bVr-0T-B6S"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -38,10 +71,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58.399999999999999" y="116.49175412293854"/>
+            <point key="canvasLocation" x="-1052" y="-247.82608695652175"/>
         </scene>
     </scenes>
     <resources>
+        <image name="car.jpg" width="259" height="194"/>
         <image name="locationButton.png" width="67" height="67"/>
+        <image name="walking.jpg" width="210" height="240"/>
+        <image name="zoom Out.png" width="225" height="225"/>
+        <image name="zoomIn.png" width="225" height="225"/>
     </resources>
 </document>
